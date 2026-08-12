@@ -1,0 +1,6 @@
+{
+  "name": "UnLocked Manager Success System",
+  "description": "A comprehensive mobile-first development system for existing managers, featuring assessments, scoring guides, priority planners, and interactive connected competency toolkits.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
