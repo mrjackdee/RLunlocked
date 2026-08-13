@@ -10,13 +10,11 @@ import { ResultsView } from './components/ResultsView';
 import { PriorityPlannerView } from './components/PriorityPlannerView';
 import { ToolkitsView } from './components/ToolkitsView';
 import { ReassessmentView } from './components/ReassessmentView';
-import { AICoachModal } from './components/AICoachModal';
 import { Footer } from './components/Footer';
 import { QUESTIONS } from './data/assessmentData';
 
 export default function App() {
   const [state, setState] = useState<AppState>(() => loadAppState());
-  const [isAiModalOpen, setIsAiModalOpen] = useState(false);
 
   // Auto-save state updates to local storage
   useEffect(() => {
@@ -28,10 +26,6 @@ export default function App() {
   };
 
   const handleSelectTab = (tab: AppState['activeTab']) => {
-    if (tab === 'ai-coach') {
-      setIsAiModalOpen(true);
-      return;
-    }
     setState((prev) => ({ ...prev, activeTab: tab }));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -88,7 +82,6 @@ export default function App() {
         state={state}
         onUpdateState={handleUpdateState}
         onResetState={handleResetState}
-        onOpenAICoach={() => setIsAiModalOpen(true)}
       />
 
       {/* Main Tab Navigation */}
@@ -130,7 +123,6 @@ export default function App() {
             onUpdateState={handleUpdateState}
             onSelectTab={handleSelectTab}
             onSelectToolkit={handleSelectToolkit}
-            onOpenAICoach={() => setIsAiModalOpen(true)}
           />
         )}
 
@@ -142,7 +134,6 @@ export default function App() {
             onSelectToolkit={(id) =>
               setState((prev) => ({ ...prev, selectedToolkitId: id }))
             }
-            onOpenAICoach={() => setIsAiModalOpen(true)}
           />
         )}
 
@@ -153,13 +144,6 @@ export default function App() {
 
       {/* Footer */}
       <Footer onSelectTab={handleSelectTab} />
-
-      {/* AI Coach Assistant Modal */}
-      <AICoachModal
-        isOpen={isAiModalOpen}
-        onClose={() => setIsAiModalOpen(false)}
-        state={state}
-      />
     </div>
   );
 }

@@ -253,7 +253,6 @@ export interface AppState {
     | 'results'
     | 'priority'
     | 'toolkits'
-    | 'reassessment'
-    | 'ai-coach';
+    | 'reassessment';
   selectedToolkitId: number;
 }

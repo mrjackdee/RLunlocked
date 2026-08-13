@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Target,
-  Sparkles,
   ArrowRight,
   HelpCircle,
   CheckCircle2,
@@ -16,7 +15,6 @@ interface PriorityPlannerViewProps {
   onUpdateState: (updater: (prev: AppState) => AppState) => void;
   onSelectTab: (tab: AppState['activeTab']) => void;
   onSelectToolkit: (toolkitId: number) => void;
-  onOpenAICoach: () => void;
 }
 
 export const PriorityPlannerView: React.FC<PriorityPlannerViewProps> = ({
@@ -24,10 +22,8 @@ export const PriorityPlannerView: React.FC<PriorityPlannerViewProps> = ({
   onUpdateState,
   onSelectTab,
   onSelectToolkit,
-  onOpenAICoach,
 }) => {
   const pState = state.priorityPlanner;
-  const [isAiLoading, setIsAiLoading] = useState(false);
 
   const handleUpdatePlanner = (field: keyof PriorityPlannerState, value: any) => {
     onUpdateState((prev) => ({
@@ -69,54 +65,6 @@ export const PriorityPlannerView: React.FC<PriorityPlannerViewProps> = ({
     }));
   };
 
-  const handleRefineWithAI = async () => {
-    setIsAiLoading(true);
-    try {
-      const selectedComp = COMPETENCIES.find(
-        (c) => c.id === pState.selectedCompetencyId
-      );
-      const promptText = `Help me refine my 30-Day Leadership Priority Statement for the UnLocked Manager Success System.
-Competency: ${selectedComp?.title || 'Leadership Presence'}
-Pattern: ${pState.currentPattern || 'Inconsistent visibility during rushes'}
-Trigger: ${pState.trigger || 'Understaffing or rush hours'}
-Root Cause: ${pState.rootCause || 'Belief that paperwork takes priority'}
-
-Format the output strictly as JSON with keys: "when", "will", "soThat", "fullStatement"`;
-
-      const response = await fetch('/api/ai-coach', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: promptText,
-          context: 'Priority Statement Builder',
-          type: 'Refinement',
-        }),
-      });
-
-      const data = await response.json();
-      if (data.reply) {
-        // Try to extract JSON or apply reply
-        try {
-          const jsonMatch = data.reply.match(/\{[\s\S]*\}/);
-          if (jsonMatch) {
-            const parsed = JSON.parse(jsonMatch[0]);
-            if (parsed.when && parsed.will && parsed.soThat) {
-              handleFormulaChange(parsed.when, parsed.will, parsed.soThat);
-            }
-          } else {
-            handleUpdatePlanner('finalPriorityStatement', data.reply);
-          }
-        } catch (e) {
-          handleUpdatePlanner('finalPriorityStatement', data.reply);
-        }
-      }
-    } catch (err) {
-      console.error('AI Refinement failed', err);
-    } finally {
-      setIsAiLoading(false);
-    }
-  };
-
   return (
     <div className="space-y-8 animate-fadeIn pb-12">
       {/* Header Banner */}
@@ -133,14 +81,6 @@ Format the output strictly as JSON with keys: "when", "will", "soThat", "fullSta
               "Focused improvement outperforms scattered intention."
             </p>
           </div>
-
-          <button
-            onClick={onOpenAICoach}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 shadow self-start md:self-auto"
-          >
-            <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>AI Priority Assistant</span>
-          </button>
         </div>
 
         <div className="bg-[#112A46] p-4 rounded-lg border border-blue-800 text-xs text-slate-300 space-y-1">
@@ -269,14 +209,6 @@ Format the output strictly as JSON with keys: "when", "will", "soThat", "fullSta
               3. NAME THE BEHAVIOR (Root-Cause Thinking)
             </h2>
           </div>
-          <button
-            onClick={handleRefineWithAI}
-            disabled={isAiLoading}
-            className="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-lg flex items-center space-x-1.5 font-semibold transition-colors disabled:opacity-50"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>{isAiLoading ? 'Refining...' : 'AI Refine Statement'}</span>
-          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

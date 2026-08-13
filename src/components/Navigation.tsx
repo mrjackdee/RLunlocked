@@ -7,7 +7,6 @@ import {
   Target,
   Wrench,
   TrendingUp,
-  Sparkles,
 } from 'lucide-react';
 import { AppState } from '../types';
 
@@ -76,13 +75,6 @@ export const Navigation: React.FC<NavigationProps> = ({
       label: '07. 30-Day Progress',
       icon: TrendingUp,
       sub: 'Reassessment & Logs',
-    },
-    {
-      id: 'ai-coach',
-      label: 'AI Coach',
-      icon: Sparkles,
-      sub: 'Randy Locke Assistant',
-      highlight: true,
     },
   ];
 

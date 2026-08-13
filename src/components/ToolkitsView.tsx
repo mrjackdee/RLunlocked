@@ -9,7 +9,6 @@ import {
   TrendingUp,
   Plus,
   Trash2,
-  Sparkles,
   Save,
   CheckCircle2,
 } from 'lucide-react';
@@ -21,7 +20,6 @@ interface ToolkitsViewProps {
   onUpdateState: (updater: (prev: AppState) => AppState) => void;
   selectedToolkitId: number;
   onSelectToolkit: (id: number) => void;
-  onOpenAICoach: () => void;
 }
 
 export const ToolkitsView: React.FC<ToolkitsViewProps> = ({
@@ -29,7 +27,6 @@ export const ToolkitsView: React.FC<ToolkitsViewProps> = ({
   onUpdateState,
   selectedToolkitId,
   onSelectToolkit,
-  onOpenAICoach,
 }) => {
   const tState = state.toolkitsState;
   const currentComp = COMPETENCIES.find((c) => c.id === selectedToolkitId) || COMPETENCIES[0];
@@ -170,14 +167,6 @@ export const ToolkitsView: React.FC<ToolkitsViewProps> = ({
               {currentComp.evaluates}
             </p>
           </div>
-
-          <button
-            onClick={onOpenAICoach}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 shadow self-start md:self-auto"
-          >
-            <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>AI Toolkit Assistant</span>
-          </button>
         </div>
 
         {/* Toolkit Selector Sub-Tabs */}

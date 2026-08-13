@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import { Lock, Sparkles, RotateCcw, Download, User, CheckCircle2 } from 'lucide-react';
+import { Lock, RotateCcw, Download, User, CheckCircle2 } from 'lucide-react';
 import { AppState } from '../types';
 
 interface HeaderProps {
   state: AppState;
   onUpdateState: (updater: (prev: AppState) => AppState) => void;
   onResetState: () => void;
-  onOpenAICoach: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   state,
   onUpdateState,
   onResetState,
-  onOpenAICoach,
 }) => {
   const [isEditingManager, setIsEditingManager] = useState(false);
   const [tempName, setTempName] = useState(state.managerName);
@@ -89,15 +87,6 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
             )}
           </div>
-
-          {/* AI Coach Button */}
-          <button
-            onClick={onOpenAICoach}
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-all"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-            <span>AI Leadership Coach</span>
-          </button>
 
           {/* Export JSON */}
           <button
