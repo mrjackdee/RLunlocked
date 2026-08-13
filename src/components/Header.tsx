@@ -48,10 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-bold text-lg tracking-wide text-white uppercase font-sans">
-                UnLocked
-              </span>
-              <span className="text-xs text-blue-300 tracking-wider uppercase font-semibold hidden sm:inline-block border-l border-blue-400/40 pl-2">
-                Business Solutions
+                UNLOCKED BY RANDY LOCKE
               </span>
             </div>
             <h1 className="text-xs text-slate-300 font-medium tracking-tight">

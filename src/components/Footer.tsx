@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
           </div>
           <div>
             <div className="font-bold text-sm tracking-wide text-white uppercase font-sans">
-              UnLocked Business Solutions
+              UNLOCKED BY RANDY LOCKE
             </div>
             <div className="text-[11px] text-blue-300">
               UNLOCKED MANAGER SUCCESS SYSTEM — EXISTING MANAGER EDITION
@@ -31,7 +31,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
             LEADERSHIP IS DEMONSTRATED THROUGH CONSISTENT BEHAVIOR.
           </div>
           <div className="text-slate-400 text-[10px] mt-1">
-            End-User Development Package © {new Date().getFullYear()} UnLocked Business Solutions. Created by Randy Locke.
+            Prototype developed by DonOra Global. Content © {new Date().getFullYear()} UnLocked Business Solutions / Randy Locke.
           </div>
         </div>
       </div>
